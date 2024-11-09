@@ -1,0 +1,134 @@
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro de Veículos</title>
+        <style>
+            body {
+                height: 100vh; /* Define a altura total da tela */
+            }
+        </style>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            // Função para transformar o texto em maiúsculas
+            function toUpperCase(event) {
+                event.target.value = event.target.value.toUpperCase();
+            }
+
+            tailwind.config = {
+            theme: {
+                extend: {
+                colors: {
+                    primary: '#001f3f',
+                    secondary: '#003366',
+                    tertiary: '#336699',
+                    quaternary: '#99ccff',
+                    quintenary: '#cce6ff',
+                }
+                }
+            }
+            }
+
+
+        </script>
+    </head>
+    <body class="bg-primary flex">
+
+        <!-- Menu Lateral -->
+        <div class="w-64 bg-secondary shadow-md h-full p-5">
+            <h2 class="text-xl text-quaternary font-bold mb-5">Menu</h2>
+            <ul>
+                <li class="mb-2">
+                    <a href="#" class="text-quintenary hover:bg-tertiary block p-2 rounded">Cadastro de Veículos</a>
+                </li>
+                <li class="mb-2">
+                    <a href="http://localhost:3000/veiculos-page" class="text-quintenary hover:bg-tertiary block p-2 rounded">Veículos</a>
+                </li>
+                <li class="mb-2">
+                    <a href="#" class="text-quintenary hover:bg-tertiary block p-2 rounded">Relatórios</a>
+                </li>
+                <li class="mb-2">
+                    <a href="#" class="text-quintenary hover:bg-tertiary block p-2 rounded">Configurações</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="flex-1 p-5 overflow-auto">
+            <h1 class="text-3xl text-quintenary font-bold mb-5">Cadastro de Veículos</h1>
+
+            <div class="bg-white shadow-md rounded-lg p-6 mb-5">
+                <form method="post" action="/cadastrar">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="modelo">
+                            Modelo
+                        </label>
+                        <input type="text" autocomplete="off" id="modelo" name="modelo" required oninput="toUpperCase(event)"
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="placa">
+                            Placa
+                        </label>
+                        <input type="text" autocomplete="off" id="placa" name="placa" required oninput="toUpperCase(event)"
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="chassi">
+                            Chassi
+                        </label>
+                        <input type="text" autocomplete="off" id="chassi" name="chassi" required oninput="toUpperCase(event)"
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="montadora">
+                            Montadora
+                        </label>
+                        <input type="text" autocomplete="off" id="montadora" name="montadora" required oninput="toUpperCase(event)"
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="comitente">
+                            Condutor
+                        </label>
+                        <input type="text" autocomplete="off" id="comitente" name="comitente" required oninput="toUpperCase(event)"
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
+                            Status
+                        </label>
+                        <select id="status" name="status" required
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">Selecione um status</option>
+                            <option value="PÁTIO EM VIGOR">PÁTIO</option>
+                            <option value="REMOÇÃO EM TRANSITO">REMOÇÃO / EM TRÂNSITO</option>
+                            <option value="REMOÇÃO EM TRANSITO">VENDA</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="cor">
+                            Cor
+                        </label>
+                        <input type="text" autocomplete="off" id="cor" name="cor" required oninput="toUpperCase(event)"
+                            class="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <button type="submit"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                            Cadastrar Veículo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </body>
+    </html>

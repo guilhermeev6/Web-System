@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Lista de Veículos</title>
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .table-responsive th,
+        .table-responsive td {
+            min-width: 60px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-primary flex">
+
+    <!-- Menu Lateral -->
+    <div class="w-64 bg-secondary shadow-md h-full p-5">
+        <h2 class="text-xl text-quaternary font-bold mb-5">Menu</h2>
+        <ul>
+            <li class="mb-2">
+                <a href="http://localhost:3000/" class="text-quintenary hover:bg-tertiary block p-2 rounded">Cadastro de
+                    Veículos</a>
+            </li>
+            <li class="mb-2">
+                <a href="/veiculos-page" class="text-quintenary hover:bg-tertiary block p-2 rounded">Veículos</a>
+            </li>
+            <li class="mb-2">
+                <a href="#" class="text-quintenary hover:bg-tertiary block p-2 rounded">Relatórios</a>
+            </li>
+            <li class="mb-2">
+                <a href="#" class="text-quintenary hover:bg-tertiary block p-2 rounded">Configurações</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="flex-1 p-5 overflow-auto">
+        <h1 class="text-3xl text-quintenary font-bold mb-5">Lista de Veículos</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6 mb-5 table-responsive">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr class="bg-quaternary">
+                        <th class="py-2 px-4 border">Modelo</th>
+                        <th class="py-2 px-4 border">Placa</th>
+                        <th class="py-2 px-4 border">Chassi</th>
+                        <th class="py-2 px-4 border">Montadora</th>
+                        <th class="py-2 px-4 border">Comitente</th>
+                        <th class="py-2 px-4 border">Status</th>
+                        <th class="py-2 px-4 border">Cor</th>
+                        <th class="py-2 px-4 border">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dados serão inseridos pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de Edição -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded shadow-md w-full max-w-4xl"> <!-- Aumentei a largura máxima do modal -->
+            <h2 class="text-2xl font-bold mb-4">Editar Veículo</h2>
+            <form id="editForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Estrutura de grid -->
+                <input type="hidden" id="editId">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editModelo">Modelo</label>
+                    <input type="text" autocomplete="off" id="editModelo" required oninput="toUpperCase(event)" class="w-full py-2 px-3 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editPlaca">Placa</label>
+                    <input type="text" autocomplete="off" id="editPlaca" required oninput="toUpperCase(event)" class="w-full py-2 px-3 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editChassi">Chassi</label>
+                    <input type="text" autocomplete="off" id="editChassi" required oninput="toUpperCase(event)" class="w-full py-2 px-3 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editMontadora">Montadora</label>
+                    <input type="text" autocomplete="off" id="editMontadora" required oninput="toUpperCase(event)" class="w-full py-2 px-3 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editComitente">Condutor</label>
+                    <input type="text" autocomplete="off" id="editComitente" required oninput="toUpperCase(event)" class="w-full py-2 px-3 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editStatus">Status</label>
+                    <select id="editStatus" class="w-full py-2 px-3 border rounded">
+                        <option value="">Selecione um status</option>
+                        <option value="PÁTIO EM VIGOR">PÁTIO</option>
+                        <option value="REMOÇÃO EM TRANSITO">REMOÇÃO / EM TRÂNSITO</option>
+                        <option value="REMOÇÃO EM TRANSITO">VENDA</option>
+                    </select>
+                </div>                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="editCor">Cor</label>
+                    <input type="text" autocomplete="off" id="editCor" required oninput="toUpperCase(event)" class="w-full py-2 px-3 border rounded">
+                </div>
+                <div class="flex items-center justify-end col-span-2"> <!-- Ocupa as duas colunas para os botões -->
+                    <button type="button" onclick="fecharModal()" class="mr-3 text-gray-500">Cancelar</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        function toUpperCase(event) {
+            event.target.value = event.target.value.toUpperCase();
+        }
+
+        async function carregarVeiculos() {
+            try {
+                const resposta = await fetch('/veiculos');
+                const veiculos = await resposta.json();
+
+                const tbody = document.querySelector('tbody');
+                tbody.innerHTML = '';
+
+                veiculos.forEach(veiculo => {
+                    const linha = document.createElement('tr');
+
+                    linha.innerHTML = `
+                        <td class="py-2 px-4 border">${veiculo.modelo}</td>
+                        <td class="py-2 px-4 border">${veiculo.placa}</td>
+                        <td class="py-2 px-4 border">${veiculo.chassi}</td>
+                        <td class="py-2 px-4 border">${veiculo.montadora}</td>
+                        <td class="py-2 px-4 border">${veiculo.comitente}</td>
+                        <td class="py-2 px-4 border">${veiculo.status}</td>
+                        <td class="py-2 px-4 border">${veiculo.cor}</td>
+                        <td class="py-2 px-4 border">
+                            <button class="text-blue-500 hover:text-blue-700 mx-1" onclick="editarVeiculo('${veiculo._id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-red-500 hover:text-red-700 mx-1" onclick="excluirVeiculo('${veiculo._id}')">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    `;
+
+                    tbody.appendChild(linha);
+                });
+            } catch (erro) {
+                console.error('Erro ao carregar veículos:', erro);
+            }
+        }
+
+        window.onload = carregarVeiculos;
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#001f3f',
+                        secondary: '#003366',
+                        tertiary: '#336699',
+                        quaternary: '#99ccff',
+                        quintenary: '#cce6ff',
+                    }
+                }
+            }
+        };
+
+        function excluirVeiculo(id) {
+            const confirmacao = confirm("Tem certeza que deseja excluir este veículo?");
+            if (!confirmacao) return;
+
+            fetch(`/veiculos/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Veículo excluído com sucesso");
+                        carregarVeiculos();
+                    } else {
+                        alert("Erro ao excluir o veículo");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                    alert("Erro ao excluir o veículo");
+                });
+        }
+
+        function editarVeiculo(id) {
+            fetch(`/veiculos/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro: ${response.status}`); // Lança erro se a resposta não for OK
+                    }
+                    return response.json(); // Tenta converter para JSON
+                })
+                .then(veiculo => {
+                    if (veiculo) {
+                        abrirModal(veiculo);
+                    } else {
+                        alert('Veículo não encontrado.');
+                    }
+                })
+                .catch(error => console.error('Erro ao carregar veículo:', error));
+        }
+
+
+        function abrirModal(veiculo) {
+            document.getElementById('editId').value = veiculo._id;
+            document.getElementById('editModelo').value = veiculo.modelo || '';
+            document.getElementById('editPlaca').value = veiculo.placa || '';
+            document.getElementById('editChassi').value = veiculo.chassi || '';
+            document.getElementById('editMontadora').value = veiculo.montadora || '';
+            document.getElementById('editComitente').value = veiculo.comitente || '';
+            document.getElementById('editStatus').value = veiculo.status || '';
+            document.getElementById('editCor').value = veiculo.cor || '';
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+
+        function fecharModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        document.getElementById('editForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const id = document.getElementById('editId').value;
+            const veiculoAtualizado = {
+                modelo: document.getElementById('editModelo').value,
+                placa: document.getElementById('editPlaca').value,
+                chassi: document.getElementById('editChassi').value,
+                montadora: document.getElementById('editMontadora').value,
+                comitente: document.getElementById('editComitente').value,
+                status: document.getElementById('editStatus').value,
+                cor: document.getElementById('editCor').value,
+            };
+
+            fetch(`/veiculos/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(veiculoAtualizado)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Veículo atualizado com sucesso');
+                        fecharModal();
+                        carregarVeiculos();
+                    } else {
+                        alert('Erro ao atualizar veículo');
+                    }
+                })
+                .catch(error => console.error('Erro ao atualizar veículo:', error));
+        });
+
+    </script>
+</body>
+
+</html>
